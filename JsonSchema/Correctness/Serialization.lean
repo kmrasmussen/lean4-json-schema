@@ -1,4 +1,9 @@
-import JsonSchema.Schema
+module
+
+public import JsonSchema.Schema
+
+public section
+@[expose] section
 
 namespace JsonSchema
 

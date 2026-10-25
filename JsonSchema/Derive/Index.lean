@@ -1,2 +1,7 @@
-import JsonSchema.Derive.Schema
-import JsonSchema.Derive.SchemaValid
+module
+
+public import JsonSchema.Derive.Schema
+public import JsonSchema.Derive.SchemaValid
+
+public section
+@[expose] section

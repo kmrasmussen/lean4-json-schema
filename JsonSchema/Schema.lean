@@ -1,4 +1,9 @@
-import Lean.Data.Json
+module
+
+public import Lean.Data.Json
+
+public section
+@[expose] section
 
 namespace JsonSchema
 
@@ -289,7 +294,7 @@ private def dedupByKey (pairs : List (String × α)) : List (String × α) :=
 /-- Serialize a schema to `Lean.Json`.
     Recursive type definitions anywhere in the tree are hoisted to a top-level
     `$defs` block, with inline occurrences replaced by `$ref` pointers. -/
-def JSONSchema.toLeanJson (schema : JSONSchema) : Lean.Json :=
+@[no_expose] def JSONSchema.toLeanJson (schema : JSONSchema) : Lean.Json :=
   let defs := dedupByKey (collectRefDefs schema)
   if defs.isEmpty then
     schema.toLeanJsonCore

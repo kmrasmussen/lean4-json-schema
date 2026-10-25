@@ -1,1 +1,6 @@
-import JsonSchema.Index
+module
+
+public import JsonSchema.Index
+
+public section
+@[expose] section

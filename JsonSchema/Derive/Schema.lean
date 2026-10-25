@@ -1,5 +1,10 @@
-import Lean
-import JsonSchema.Schema
+module
+
+public import Lean
+public import JsonSchema.Schema
+public meta import Lean.Elab.Deriving.Basic
+
+public meta section
 
 namespace JsonSchema.Derive
 

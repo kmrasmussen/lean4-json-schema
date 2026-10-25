@@ -1,5 +1,10 @@
-import JsonSchema.Schema
-import JsonSchema.Validation
+module
+
+public import JsonSchema.Schema
+public import JsonSchema.Validation
+
+public section
+@[expose] section
 
 namespace JsonSchema
 

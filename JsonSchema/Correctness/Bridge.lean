@@ -1,7 +1,13 @@
-import JsonSchema.Schema
-import JsonSchema.Validation
-import JsonSchema.Correctness.Soundness
-import Std.Data.TreeMap.Raw.Lemmas
+module
+
+public import JsonSchema.Schema
+public import JsonSchema.Validation
+public import JsonSchema.Correctness.Soundness
+public import Std.Data.TreeMap.Raw.Lemmas
+import all Lean.Data.Json.Basic
+
+public section
+@[expose] section
 
 namespace JsonSchema
 

@@ -1,5 +1,10 @@
-import Lean.Data.Json
-import JsonSchema.Schema
+module
+
+public import Lean.Data.Json
+public import JsonSchema.Schema
+
+public section
+@[expose] section
 
 namespace JsonSchema
 

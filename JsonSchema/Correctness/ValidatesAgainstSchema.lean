@@ -1,5 +1,11 @@
-import JsonSchema.Schema
-import JsonSchema.Validation
+module
+
+public import JsonSchema.Schema
+public import JsonSchema.Validation
+import all Lean.Data.Json.FromToJson.Basic
+
+public section
+@[expose] section
 
 namespace JsonSchema
 

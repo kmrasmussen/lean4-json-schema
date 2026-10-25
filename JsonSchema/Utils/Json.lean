@@ -1,4 +1,9 @@
-import Lean.Data.Json
+module
+
+public import Lean.Data.Json
+
+public section
+@[expose] section
 
 /-!
 # JSON Schema Utilities

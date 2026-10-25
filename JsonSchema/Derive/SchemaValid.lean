@@ -1,10 +1,17 @@
-import Lean
-import JsonSchema.Schema
-import JsonSchema.Validation
-import JsonSchema.Correctness.Soundness
-import JsonSchema.Correctness.Bridge
-import JsonSchema.Correctness.ValidatesAgainstSchema
-import JsonSchema.Derive.Schema
+module
+
+public import Lean
+public import JsonSchema.Schema
+public import JsonSchema.Validation
+public import JsonSchema.Correctness.Soundness
+public import JsonSchema.Correctness.Bridge
+public import JsonSchema.Correctness.ValidatesAgainstSchema
+public import JsonSchema.Derive.Schema
+public meta import JsonSchema.Schema
+public meta import JsonSchema.Validation
+public meta import JsonSchema.Correctness.Soundness
+
+public meta section
 
 namespace JsonSchema.Derive
 
@@ -91,7 +98,7 @@ def mkStructValidatesInstanceCmd (declName : Name) : CommandElabM Bool := do
               (objectSchema [$propEntries,*] [$reqEntries,*])
               (Json.mkObj [$pairEntries,*]) = .ok ()
             exact validateJson_mkObj_objectSchema _ _ _
-              (by simp only [List.map]; decide)
+              (by simp only [List.map]; first | decide | simp)
               (hReq_of_map_fst _ _ rfl)
               (by intro k hk; simp only [List.map] at hk ⊢; exact hk)
               (by $hValidTactics*)
@@ -177,7 +184,7 @@ private def mkObjBridgeHave
   `(tactic|
     have _inner : validateJson ($objSchema) ($jsonValue) = .ok () :=
       validateJson_mkObj_objectSchema _ _ _
-        (by simp only [List.map]; decide)
+        (by simp only [List.map]; first | decide | simp)
         (hReq_of_map_fst _ _ rfl)
         (by intro k hk; simp only [List.map] at hk ⊢; exact hk)
         (by $hValidBody*))
@@ -229,7 +236,7 @@ private def mkNamedObjBridgeHave
   `(tactic|
     have _namedObj : validateJson ($objSchema) ($jsonValue) = .ok () :=
       validateJson_mkObj_objectSchema _ _ _
-        (by simp only [List.map]; decide)
+        (by simp only [List.map]; first | decide | simp)
         (hReq_of_map_fst _ _ rfl)
         (by intro k hk; simp only [List.map] at hk ⊢; exact hk)
         (by $hValidBody*))
@@ -477,7 +484,7 @@ def mkInductiveValidatesInstanceCmd (declName : Name) : CommandElabM Bool := do
         -- Unnamed args: existing single-arg / tuple strategies
         let jsonValue ← match numArgs with
           | 1 => `(term| Json.mkObj [($keyStx, toJson _x)])
-          | 2 => `(term| Json.mkObj [($keyStx, toJson (_x, _y))])
+          | 2 => `(term| Json.mkObj [($keyStx, Json.arr #[toJson _x, toJson _y])])
           | 3 => `(term| Json.mkObj [($keyStx, Json.arr #[toJson _x, toJson _y, toJson _z])])
           | 4 => `(term| Json.mkObj [($keyStx, Json.arr #[toJson _x, toJson _y, toJson _z, toJson _w])])
           | _ => throwError "'deriving ValidatesAgainstSchema' unsupported: constructor \
